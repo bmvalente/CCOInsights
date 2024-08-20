@@ -151,7 +151,7 @@ jobs:
       - name: "Zip publish folder"
         run: |
           publishZip="publish.zip"
-          cd publish && zip -r ../publish.zip * && cd -
+          cd publish && zip -r ../publish.zip . && cd -
 
       - name: "Deploy code"
         uses: Azure/CLI@v1

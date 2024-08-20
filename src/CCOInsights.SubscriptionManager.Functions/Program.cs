@@ -8,6 +8,7 @@ using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
 
 var host = new HostBuilder()
@@ -36,8 +37,14 @@ var host = new HostBuilder()
         {
             configuration.GetSection("Features").Bind(settings);
         });
+
+        // Add logging
+        services.AddLogging(configure => configure.AddConsole());
     })
     .Build();
+
+var logger = host.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("Host built successfully. Starting the host...");
 
 host.Run();
 
